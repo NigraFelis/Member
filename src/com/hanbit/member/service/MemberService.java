@@ -8,6 +8,6 @@ public interface MemberService {
 	public int countMembers();
 	public MemberBean findById(String id);
 	public MemberBean[] findByName(String name);
-	public void updatePass(MemberBean member);
-	public void delete(String id);
+	public void modify(MemberBean member);
+	public void remove(String id);
 }

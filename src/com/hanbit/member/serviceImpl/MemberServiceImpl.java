@@ -1,6 +1,8 @@
 package com.hanbit.member.serviceImpl;
 
 
+import com.habit.member.dao.MemberDAO;
+import com.habit.member.daoImpl.MemberDAOImpl;
 import com.hanbit.member.domain.MemberBean;
 import com.hanbit.member.service.MemberService;
 
@@ -56,13 +58,11 @@ public class MemberServiceImpl implements MemberService {
 	}*/
 	@Override
 	public MemberBean findById(String id) {
-		member=new MemberBean();
-		for(int i=0;i<list.length;i++){
-			if(id.equals(list[i].getId())){
-				member=list[i];
-				
-			}
-		}
+		MemberBean member = new MemberBean();
+		
+		MemberDAO dao = new MemberDAOImpl();
+		member = dao.selectById(id);
+	
 		return member;
 	}
 
@@ -99,7 +99,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updatePass(MemberBean member) {
+	public void modify(MemberBean member) {
 		
 		/*for(int i=0;i<list.length;i++){
 			if(member.getId().equals(list[i].getId())){
@@ -116,7 +116,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void delete(String id) {
+	public void remove(String id) {
 		/*MemberBean deleteId = findById(id);
 		deleteId.setId(null);
 		deleteId.setPassword(null);

@@ -2,6 +2,8 @@ package com.hanbit.member.controller;
 
 import javax.swing.JOptionPane;
 
+import com.habit.member.dao.MemberDAO;
+import com.habit.member.daoImpl.MemberDAOImpl;
 import com.hanbit.member.domain.MemberBean;
 import com.hanbit.member.service.MemberService;
 import com.hanbit.member.serviceImpl.MemberServiceImpl;
@@ -13,6 +15,7 @@ public class MemberController {
 		/*String sCount=(JOptionPane.showInputDialog("관리자님 총 최원수를 입력해주세요"));*/
 		/*int count = Integer.parseInt(sCount);*/
 		MemberService service = new MemberServiceImpl(/*count*/);
+		MemberDAO service2 = new MemberDAOImpl();
 		MemberBean member = null;
 		while(true){
 			switch(JOptionPane.showInputDialog("0.end 1.추가 .2수 3.목록 4.findById 5.findByName 6.update 7.delete")){
@@ -46,7 +49,7 @@ public class MemberController {
 			
 			case "4":
 				
-				JOptionPane.showMessageDialog(null, (service.findById(JOptionPane.showInputDialog("insert id"))).toString());
+				JOptionPane.showMessageDialog(null, (service2.selectById(JOptionPane.showInputDialog("insert id"))).toString());
 				break;
 				
 			case "5":
@@ -79,7 +82,7 @@ public class MemberController {
 				member = new MemberBean();
 				member.setId(JOptionPane.showInputDialog("insert find id"));
 				member.setPassword(JOptionPane.showInputDialog("insert update password"));
-				service.updatePass(member);
+				service.modify(member);
 				
 				
 				JOptionPane.showMessageDialog(null, "비밀번호 변경");
@@ -87,7 +90,7 @@ public class MemberController {
 				
 			case"7":
 				member = new MemberBean();
-				service.delete(JOptionPane.showInputDialog("insert delete id"));
+				service.remove(JOptionPane.showInputDialog("insert delete id"));
 				JOptionPane.showMessageDialog(null, "삭제완료");
 				
 				break;
