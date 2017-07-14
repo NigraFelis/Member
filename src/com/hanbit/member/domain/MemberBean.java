@@ -38,6 +38,6 @@ public class MemberBean {
 	}
 	
 	public String toString(){
-		 return " name=" +name+" id="+id+" pw=" +password+ " ssn="+ssn;
+		return String.format("ID : %s, PW : %s, NAME : %s SSN : %s , REGDATE : %s \n ", id,password,name,ssn,regdate);
 	}
 }

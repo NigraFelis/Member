@@ -1,6 +1,8 @@
 package com.hanbit.member.serviceImpl;
 
 
+import java.util.List;
+
 import com.habit.member.dao.MemberDAO;
 import com.habit.member.daoImpl.MemberDAOImpl;
 import com.hanbit.member.domain.MemberBean;
@@ -18,44 +20,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void addMember(MemberBean member) {
-		if (count==list.length){
-			MemberBean[] temp = new MemberBean[count +1];
-			System.arraycopy(list, 0, temp, 0, count);
-			list=temp;
-		}
-		list[count++] = member;
+	public String addMember(MemberBean bean) {
+		return(new MemberDAOImpl().insert(bean)==1)?"succes":"fail";
 	}
 
 	@Override
-	public MemberBean[] getMembers() {
-		MemberBean[] result = new MemberBean[count];
-		if(count==list.length){
-			result = list;	
-		}
-		else{
-			for(int i=0; i<count;i++){
-				result[i] = list[i];
-			}
-		}
-		return result;
+	public List<MemberBean> getMembers() {
+		
+		return new MemberDAOImpl().selectAll();
 	}
 
 	@Override
 	public int countMembers() {
-		return count;
+		return new MemberDAOImpl().count();
 	}
 
-	/*@Override
-	public MemberBean findById(String id) {
-		MemberBean result = null;
-		for(int i=0; i<list.length; i++){
-			if(id.equals (list[i].getId())){
-				result = list[i];
-			}
-		}
-		return result;
-	}*/
+	
 	@Override
 	public MemberBean findById(String id) {
 		MemberBean member = new MemberBean();
@@ -67,76 +47,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberBean[] findByName(String name) {
-		int count=0;
-	
-		for(int i=0; i<list.length; i++){
-			if(name.equals (list[i].getName())){
-				count++;
-			}
-		}
-		MemberBean[] temp = new MemberBean[count];
+	public List<MemberBean> findByName(String name) {
 		
-		/*for(int i=0; i<count; i++){
-			for(int j=0; j<list.length; j++){
-				if(name.equals (list[j].getName())){
-					temp[i] = list[j];	
-				}
-			}
-		}*/
-		
-		int j=0;
-		for(int i=0;i<list.length;i++){
-			if(name.equals(list[i].getName())){
-				temp[j]=list[i];
-				j++;
-			}
-			if(count==j){
-				break;
-			}
-		}
-		return temp;
+		return new MemberDAOImpl().selectByName(name);
 	}
 
 	@Override
-	public void modify(MemberBean member) {
-		
-		/*for(int i=0;i<list.length;i++){
-			if(member.getId().equals(list[i].getId())){
-				list[i].setPassword(member.getPassword());;
-			}
-		}*/
-		/*for(int i=0;i<list.length;i++){
-			if(findById(member.getId()).equals(list[i].getId())){
-				list[i].setPassword(member.getPassword());;
-			}
-		}*/
-		(findById(member.getId())).setPassword(member.getPassword());;
-		
+	public String modify(MemberBean bean) {
+		return(new MemberDAOImpl().update(bean)==1)?"succes":"fail";	
 	}
 	
 	@Override
-	public void remove(String id) {
-		/*MemberBean deleteId = findById(id);
-		deleteId.setId(null);
-		deleteId.setPassword(null);
-		deleteId.setName(null);
-		deleteId.setSNN(null);*/
-		
-		/*findById(id).setPassword(null);
-		findById(id).setName(null);
-		findById(id).setSNN(null);
-		findById(id).setId(null);*/
-		
-		for(int i=0;i<count;i++){
-			if(id.equals(list[i].getId())){
-				list[i] = list[count-1];
-				list[count-1]=null;
-				count --;
-			}
-		}
-		
-		
-		
+	public String remove(String id) {
+		return(new MemberDAOImpl().delete(id)==1)?"succes":"fail";
 	}
+	
+		
+		
 }
+

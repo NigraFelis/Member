@@ -2,6 +2,8 @@
 
 
 SELECT * FROM Member;
+SELECT * FROM Member WHERE name='홍길동';
+SELECT COUNT(*) AS count FROM Member;
 INSERT INTO Member(id, name, password, ssn, regdate)
 VALUES('hong', '홍길동', '1', '860305-1234567', SYSDATE);
 INSERT INTO Member(id, name, password, ssn, regdate)
@@ -23,7 +25,7 @@ VALUES('555', '정우성', '1', '551212-2234567', SYSDATE);
 INSERT INTO Member(id, name, password, ssn, regdate)
 VALUES('666', '장동건', '1', '461212-2234567', SYSDATE);
 INSERT INTO Member(id, name, password, ssn, regdate)
-VALUES('777', '김우빈', '1', '371212-2234567', SYSDATE);
+VALUES('888', '김우열', '1', '701212-2234567', SYSDATE);
 
 update MEMBER
 set name = '동길홍'
